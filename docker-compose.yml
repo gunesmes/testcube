@@ -5,7 +5,7 @@ services:
     image: nginx:latest
     container_name: ng01
     ports:
-      - "0.0.0.0:4000:4000"
+      - "0.0.0.0:8000:8000"
     volumes:
       - .:/code
       - ./config/nginx:/etc/nginx/conf.d
@@ -21,11 +21,11 @@ services:
       - 5432:5432
   web:
     build: .
-    command: bash -c "python3 manage.py collectstatic --noinput && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:4000"
+    command: bash -c "python3 manage.py collectstatic --noinput && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
-      - 4000
+      - 8000
     depends_on:
       - db
 
